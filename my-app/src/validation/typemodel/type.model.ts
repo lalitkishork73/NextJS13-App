@@ -16,3 +16,7 @@ export interface TaskPost {
   userId: Types.ObjectId;
 }
 export interface TaskModel extends TaskPost, Document {}
+
+export interface Params {
+  userId?: string;
+}

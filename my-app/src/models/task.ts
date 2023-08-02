@@ -1,4 +1,4 @@
-import { Schema, model, Types } from 'mongoose';
+import mongoose, { Schema, model, Types } from 'mongoose';
 import { TaskModel } from '@/validation/typemodel/type.model';
 
 const Task_Schema = new Schema(
@@ -31,4 +31,5 @@ const Task_Schema = new Schema(
   { timestamps: true }
 );
 
-export default model<TaskModel>('tasks', Task_Schema);
+export default mongoose.models.tasks ||
+  model<TaskModel>('tasks', Task_Schema);
