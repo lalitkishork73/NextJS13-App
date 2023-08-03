@@ -3,6 +3,7 @@ import UserModel from '@/models/user';
 import bcrypt from 'bcrypt';
 import { Connect_Db } from '@/helper/db';
 import { UserPost } from '@/validation/typemodel/type.model';
+import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/httpHelper';
 
 //---> Data base Connection function
 Connect_Db();
@@ -15,36 +16,11 @@ export async function GET() {
       password: 0
     });
     if (find_users.length === 0) {
-      return NextResponse.json(
-        {
-          message: 'failed to find users',
-          status: false
-        },
-        {
-          status: 404
-        }
-      );
+      return ErrStatusResponse(false, 'failed to find users', 404);
     }
-    return NextResponse.json(
-      {
-        message: 'success!',
-        status: true,
-        data: find_users
-      },
-      {
-        status: 200
-      }
-    );
-  } catch (err) {
-    return NextResponse.json(
-      {
-        message: 'failed to find users',
-        status: false
-      },
-      {
-        status: 500
-      }
-    );
+    return SuccesStatusResponse(true, 'success', 200, find_users);
+  } catch (err: any) {
+    return ErrStatusResponse(false, err.message, 500);
   }
 }
 
@@ -55,10 +31,7 @@ export async function POST(req: NextRequest) {
     const data: UserPost = await req.json();
 
     if (!data) {
-      return NextResponse.json({
-        status: false,
-        message: 'data should available'
-      });
+      return ErrStatusResponse(false, 'Bad Request', 400);
     }
 
     const CheckEmail = await UserModel.findOne({
@@ -66,30 +39,12 @@ export async function POST(req: NextRequest) {
     });
 
     if (CheckEmail) {
-      return NextResponse.json({
-        status: false,
-        message: 'This Email Id is already Exist'
-      });
+      return ErrStatusResponse(false, 'This Email Id is already Exist', 400);
     }
     data.password = await bcrypt.hash(data.password, 15);
     const newData = await UserModel.create(data);
-    return NextResponse.json(
-      {
-        status: true,
-        message: 'Success!',
-        data: newData
-      },
-      { status: 201 }
-    );
-  } catch (err) {
-    return NextResponse.json(
-      {
-        message: `${err}`,
-        status: false
-      },
-      {
-        status: 500
-      }
-    );
+    return SuccesStatusResponse(true, 'success', 201, newData);
+  } catch (err: any) {
+    return ErrStatusResponse(false, err.message, 500);
   }
 }
