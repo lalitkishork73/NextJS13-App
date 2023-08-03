@@ -5,8 +5,6 @@ import TaskModel from '@/models/task';
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const date = new Date();
-    data['addedDate'] = date.getDate();
     data['userId'] = '64cb3c5a62affc9e2f07d218';
     const CreateTask = await TaskModel.create(data);
     return NextResponse.json(

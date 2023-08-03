@@ -1,13 +1,22 @@
+import ActionSection from '@/components/homepage/ActionSection';
+import ContactForm from '@/components/homepage/ContactForm';
+import FeatureSection from '@/components/homepage/FeatureSection';
+import HomeBanner from '@/components/homepage/HomeBanner';
+import TestimonialSection from '@/components/homepage/TestimonialSection';
 import Image from 'next/image';
+
+export const metadata = {
+  title: 'Home: work Manager'
+};
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <h1>
-          Hi There this is my best Do you want to enjoy life
-        </h1>
-      </div>
+    <main className="flex min-h flex-col">
+      <HomeBanner />
+      <FeatureSection />
+      <ActionSection />
+      <TestimonialSection />
+      <ContactForm />
     </main>
   );
 }
