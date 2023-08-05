@@ -3,7 +3,7 @@ import UserModel from '@/models/user';
 import bcrypt from 'bcrypt';
 import { Connect_Db } from '@/helper/db';
 import { UserPost } from '@/validation/typemodel/type.model';
-import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/httpHelper';
+import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
 
 //---> Data base Connection function
 Connect_Db();

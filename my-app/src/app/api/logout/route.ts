@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/httpHelper';
+import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
 
 export async function POST(req: NextRequest) {
   try {

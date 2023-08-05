@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import userModel from '@/models/user';
 import { NextRequest } from 'next/server';
-import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/httpHelper';
+import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
 
 // -----> Login User
 export async function POST(req: NextRequest) {

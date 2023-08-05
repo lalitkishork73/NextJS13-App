@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ShowTasks from './ShowTasks';
 
 export const metadata: Metadata = {
   title: 'Show-Task: Work Manager',
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 export default function ShowTask() {
   return (
     <>
-      <div>Show Task</div>
+      <ShowTasks />
     </>
   );
 }

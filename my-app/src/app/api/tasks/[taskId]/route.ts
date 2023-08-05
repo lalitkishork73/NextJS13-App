@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import TaskModel from '@/models/task';
-import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/httpHelper';
+import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
 
 //-----> Get user's Task
 

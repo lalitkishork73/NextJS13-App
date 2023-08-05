@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import UserModel from '@/models/user';
 import { Params } from '@/validation/typemodel/type.model';
 import bcrypt from 'bcrypt';
-import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/httpHelper';
+import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
 
 // -----> Get Indivisual User By UserId
 

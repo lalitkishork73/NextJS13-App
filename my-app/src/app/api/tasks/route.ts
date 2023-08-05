@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import TaskModel from '@/models/task';
+import {
+  ErrStatusResponse,
+  SuccesStatusResponse
+} from '@/helper/responseMessage';
 
 //-----> Create all Tasks
 export async function POST(req: NextRequest) {
@@ -7,62 +11,21 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     data['userId'] = '64cb3c5a62affc9e2f07d218';
     const CreateTask = await TaskModel.create(data);
-    return NextResponse.json(
-      {
-        status: true,
-        message: 'Success!',
-        data: CreateTask
-      },
-      { status: 201 }
-    );
+    return SuccesStatusResponse(true, 'Success!', 201, CreateTask);
   } catch (err: any) {
-    return NextResponse.json(
-      {
-        status: false,
-        message: err.message
-      },
-      {
-        status: 500
-      }
-    );
+    return ErrStatusResponse(false, err.message, 500);
   }
 }
-
 //-----> Get all Tasks
 
 export async function GET(req: NextRequest) {
   try {
     const allTask = await TaskModel.find();
     if (allTask.length === 0) {
-      return NextResponse.json(
-        {
-          status: false,
-          message: 'Not Found'
-        },
-        {
-          status: 404
-        }
-      );
+      return ErrStatusResponse(false, 'Not Found', 404);
     }
-    return NextResponse.json(
-      {
-        status: true,
-        message: 'success!',
-        data: allTask
-      },
-      {
-        status: 200
-      }
-    );
+    return SuccesStatusResponse(true, 'Success!', 200, allTask);
   } catch (err: any) {
-    return NextResponse.json(
-      {
-        status: false,
-        message: err.message
-      },
-      {
-        status: 500
-      }
-    );
+    return ErrStatusResponse(false, err.message, 500);
   }
 }

@@ -16,7 +16,7 @@ const ActionSection = () => {
           Get Started
         </button>
       </div>
-      <div className="absolute top-0 left-0 w-full z-0 opacity-30">
+      <div className="absolute top-0 left-0 w-full h-full z-[1] opacity-30">
         <Image
           src={ImageBanner}
           alt="banner"
