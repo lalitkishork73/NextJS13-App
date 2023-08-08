@@ -10,6 +10,8 @@ export async function addTask(task: any) {
 
 // ------ Client api call for get task
 export async function getTasksOfUser(userId: any) {
+  console.log(userId);
+  userId="64cb3c5a62affc9e2f07d218"
   const result = await httpAxios.get(`users/${userId}/tasks`);
   const response = await result.data;
   return response;

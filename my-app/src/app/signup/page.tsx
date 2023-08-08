@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import SignUp from './SignUp';
 
 export const metadata: Metadata = {
   title: 'Signup: Work Manager',
@@ -6,9 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Signup() {
-    return (
-      <>
-        <div>Signup</div>
-      </>
-    );
-  }
+  return <SignUp />;
+}
