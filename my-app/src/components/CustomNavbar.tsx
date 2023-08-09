@@ -7,11 +7,13 @@ import { toast } from 'react-toastify';
 import UserContext from '@/context/userContext';
 export default function CustomNavbar() {
   const context: any = useContext(UserContext);
+  // console.log(context, 'Navbar 1');
   const router = useRouter();
 
   async function Logout() {
     try {
-      console.log(context);
+      // console.log(context, 'Navbar 2');
+
       const result = await logout();
       context.setUser(undefined);
       router.push('/');
@@ -33,13 +35,13 @@ export default function CustomNavbar() {
       </div>
       <div>
         <ul className="flex space-x-5">
+          <li>
+            <Link href={'/'} className="hover:text-blue-200">
+              Home
+            </Link>
+          </li>
           {context.user && (
             <>
-              <li>
-                <Link href={'/'} className="hover:text-blue-200">
-                  Home
-                </Link>
-              </li>
               <li>
                 <Link href={'/add-task'} className="hover:text-blue-200">
                   Add Task
@@ -62,11 +64,17 @@ export default function CustomNavbar() {
                 <Link href={'#!'}> {}</Link>
               </li>
               <li>
-                <button onClick={() => {}}> Logout</button>
+                <button
+                  onClick={() => {
+                    Logout;
+                  }}
+                >
+                  Logout
+                </button>
               </li>
             </>
           )}
-          {context.user && (
+          {!context.user && (
             <>
               <li>
                 <Link href={'/login'} className="hover:text-blue-200">

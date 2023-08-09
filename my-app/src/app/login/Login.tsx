@@ -17,7 +17,6 @@ const Login = () => {
   const loginFormSubmitted = async (e: any) => {
     e.preventDefault();
     toast('Toast is good', {
-      hideProgressBar: true,
       autoClose: 2000,
       type: 'success',
       position: 'bottom-center'
@@ -28,11 +27,10 @@ const Login = () => {
       return;
     }
     try {
-      const result: any = await login(loginData).then((res) =>
-        toast.success('Logged In')
-      );
-      console.log(context);
-      context.setUser(result?.user);
+      const result: any = await login(loginData);
+
+      context.setUser(result?.data);
+      console.log(context.user, 'Login context2');
       router.push('/profile/user');
     } catch (err: any) {
       toast.error(err.response.data.message);

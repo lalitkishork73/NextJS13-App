@@ -1,5 +1,6 @@
 'use client';
 
 import { createContext } from 'react';
-const UserContext: any = createContext<any>({});
+
+const UserContext = createContext<any>({});
 export default UserContext;

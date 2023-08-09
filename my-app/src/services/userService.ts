@@ -10,6 +10,8 @@ export async function signUp(user: any) {
 //  ------ User Login Client api call
 export async function login(loginData: any) {
   const result = await httpAxios.post('login', loginData);
+
+  console.log(result, 'Client Call');
   const response = await result.data;
   return response;
 }

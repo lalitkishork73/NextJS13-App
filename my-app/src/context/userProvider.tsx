@@ -8,19 +8,22 @@ interface ProviderProps {
 }
 
 const Provider: FC<ProviderProps> = ({ children }: ProviderProps) => {
-  const [user, setUser] = useState<any>({});
-  console.log(user);
+  const initState = { user: '', IsLogin: false, IsLogout: true };
+  const [user, setUser] = useState<any>(initState);
+  console.log(user, 'Provider1');
   useEffect(() => {
-    (async function load() {
+    async function load() {
       try {
         const tempUser = await currentUser();
+        // console.log(tempUser, 'tempuser');
         setUser({ ...tempUser });
       } catch (err: any) {
         setUser(undefined);
       }
-    })();
+    }
+    load();
   }, []);
-
+  
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

@@ -23,6 +23,8 @@ export default function Footer() {
               <li className="hover:text-blue-200">
                 <a href="https://www.instagram.com">Instagram</a>
               </li>
+
+              <h1 className=""></h1>
             </ul>
           </div>
         </div>

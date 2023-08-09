@@ -1,8 +1,12 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import userModel from '@/models/user';
-import { NextRequest } from 'next/server';
-import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
+import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import {
+  ErrStatusResponse,
+  SuccesStatusResponse
+} from '@/helper/responseMessage';
 
 // -----> Login User
 export async function POST(req: NextRequest) {
@@ -38,11 +42,15 @@ export async function POST(req: NextRequest) {
     );
 
     //-----> Set token in cookies
-    const validSession = 1000 * 60 * 60 * 24 * 2;
+
+    const validSession: number = Date.now() - 1000 * 60 * 60 * 24 * 2;
     response.cookies.set('authToken', token, {
-      expires: validSession,
+      maxAge: validSession,
       httpOnly: true
+      // path: '/'
+      // Note :- Don't use expires, you should use maxAge otherwise you will not able to store token browser
     });
+
     return response;
   } catch (err: any) {
     return ErrStatusResponse(false, err.message, 500);
