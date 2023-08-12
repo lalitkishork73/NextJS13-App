@@ -4,8 +4,7 @@ const nextConfig = {
         domains: ["cdn.pixabay.com", "images.pexels.com", "mcdn.wallpapersafari.com"]
     },
     env: {
-        
-        
+       
     },
 }
 

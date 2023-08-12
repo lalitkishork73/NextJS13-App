@@ -19,13 +19,13 @@ const Provider: FC<ProviderProps> = ({ children }: ProviderProps) => {
     async function load() {
       try {
         const tempUser: any = await currentUser();
-        return tempUser;
+        userDispatch({ type: 'add', payload: tempUser });
       } catch (err: any) {
         userDispatch({ type: 'remove' });
       }
     }
-    load().then((response) => userDispatch({ type: 'add', payload: response }));
-  }, [userDispatch]);
+    load();
+  }, []);
 
   return (
     <UserContext.Provider value={{ userState, userDispatch }}>
