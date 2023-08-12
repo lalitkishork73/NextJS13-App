@@ -1,10 +1,9 @@
-import { Connect_Db } from '@/helper/db';
+
 import { NextResponse, NextRequest } from 'next/server';
 import UserModel from '@/models/user';
 import bcrypt from 'bcrypt';
 import { UserPost } from '@/validation/typemodel/type.model';
 import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
-Connect_Db();
 //---> Data base Connection function
 
 //---> Get all Users In DataBase

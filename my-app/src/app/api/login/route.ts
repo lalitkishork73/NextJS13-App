@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import userModel from '@/models/user';
 import { NextRequest, NextResponse } from 'next/server';
+import { Connect_Db } from '@/helper/db';
+Connect_Db();
 
 import {
   ErrStatusResponse,

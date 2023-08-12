@@ -4,6 +4,8 @@ import FeatureSection from '@/components/homepage/FeatureSection';
 import HomeBanner from '@/components/homepage/HomeBanner';
 import TestimonialSection from '@/components/homepage/TestimonialSection';
 import Image from 'next/image';
+import { Connect_Db } from '@/helper/db';
+Connect_Db();
 
 export const metadata = {
   title: 'Home: work Manager'
