@@ -18,14 +18,12 @@ const AddTask = () => {
 
   const [task, setTask] = useState<any>(initStat);
 
-  useEffect(() => {
-    if (userState?.user?._id) {
-      setTask((task: any) => ({
-        ...task,
-        userId: userState.user._id
-      }));
-    }
-  }, [userState]);
+  if (userState?.user?._id) {
+    setTask((task: any) => ({
+      ...task,
+      userId: userState.user._id
+    }));
+  }
 
   const handleAddTask = async () => {
     try {
