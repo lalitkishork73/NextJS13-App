@@ -1,22 +1,28 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { logout } from '@/services/userService';
 import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import UserContext from '@/context/userContext';
+import { initState } from '@/context/reducer';
 export default function CustomNavbar() {
   const context: any = useContext(UserContext);
-  // console.log(context, 'Navbar 1');
+  // console.log(context.userState, 'Navbar 1');
   const router = useRouter();
 
   async function Logout() {
     try {
-      // console.log(context, 'Navbar 2');
-
+      // console.log('logout client1');
       const result = await logout();
-      context.setUser(undefined);
-      router.push('/');
+      // console.log(result, 'logout client2');
+
+      if (result.status) {
+        context.userDispatch({ type: 'remove' });
+        // console.log(context.userState);
+        router.push('/');
+      }
     } catch (err) {
       toast.error('LogoutError');
     }
@@ -40,7 +46,7 @@ export default function CustomNavbar() {
               Home
             </Link>
           </li>
-          {context.user && (
+          {context?.userState?.IsLogin && (
             <>
               <li>
                 <Link href={'/add-task'} className="hover:text-blue-200">
@@ -58,15 +64,30 @@ export default function CustomNavbar() {
       </div>
       <div>
         <ul className="flex space-x-3">
-          {context.user && (
+          {context?.userState?.IsLogin && (
             <>
               <li>
-                <Link href={'#!'}> {}</Link>
+                <Link
+                  href={'/profile'}
+                  className="capitalize hover:text-blue-200"
+                >
+                  <div className="flex h-fit rounded-full ">
+                    <Image
+                      src={context?.userState?.user?.profileURL}
+                      alt="DP"
+                      width={25}
+                      height={25}
+                      className=" h-8 w-8 rounded-full  mr-2"
+                    />
+                    {context?.userState?.user?.name}
+                  </div>
+                </Link>
               </li>
               <li>
                 <button
+                  className="hover:text-blue-200"
                   onClick={() => {
-                    Logout;
+                    Logout();
                   }}
                 >
                   Logout
@@ -74,7 +95,7 @@ export default function CustomNavbar() {
               </li>
             </>
           )}
-          {!context.user && (
+          {context?.userState?.IsLogout && (
             <>
               <li>
                 <Link href={'/login'} className="hover:text-blue-200">

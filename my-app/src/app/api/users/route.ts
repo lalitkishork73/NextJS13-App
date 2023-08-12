@@ -1,12 +1,11 @@
+import { Connect_Db } from '@/helper/db';
 import { NextResponse, NextRequest } from 'next/server';
 import UserModel from '@/models/user';
 import bcrypt from 'bcrypt';
-import { Connect_Db } from '@/helper/db';
 import { UserPost } from '@/validation/typemodel/type.model';
 import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
-
-//---> Data base Connection function
 Connect_Db();
+//---> Data base Connection function
 
 //---> Get all Users In DataBase
 
@@ -41,7 +40,7 @@ export async function POST(req: NextRequest) {
     if (CheckEmail) {
       return ErrStatusResponse(false, 'This Email Id is already Exist', 400);
     }
-    data.password = await bcrypt.hash(data.password, 15);
+    data.password = await bcrypt.hash(data.password, 10);
     const newData = await UserModel.create(data);
     return SuccesStatusResponse(true, 'success', 201, newData);
   } catch (err: any) {

@@ -11,14 +11,13 @@ export async function signUp(user: any) {
 export async function login(loginData: any) {
   const result = await httpAxios.post('login', loginData);
 
-  console.log(result, 'Client Call');
+  // console.log(result, 'Client Call');
   const response = await result.data;
   return response;
 }
 //  ------ User Current Client api call
 export async function currentUser() {
   const result = await httpAxios.get('current');
-  console.log(result, '19 currentUSer');
   const response = await result.data;
   return response;
 }

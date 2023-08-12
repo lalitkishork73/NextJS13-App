@@ -19,7 +19,7 @@ function SignUp() {
     e.preventDefault();
     if (Object.keys(Signdata).length < 5) {
       toast.warning('All Field are required', { position: 'top-center' });
-      console.log('Input Required');
+      // console.log('Input Required');
     }
     try {
       const result = await signUp(Signdata);
@@ -37,7 +37,7 @@ function SignUp() {
       <div className="col-span-4 col-start-5">
         <div className="py-5">
           <div className="flex justify-center m-5">
-            <Image src={SignUpBanner} alt="signUp" className="w-[40%]" />
+            <Image src={SignUpBanner} alt="signUp" className="w-[40%] h-auto" />
           </div>
           <h1 className="text-3xl text-center">SignUp</h1>
           <form action="#!" className="mt-5" onSubmit={signup}>

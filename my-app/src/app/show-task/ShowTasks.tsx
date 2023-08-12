@@ -7,28 +7,28 @@ import { toast } from 'react-toastify';
 
 const ShowTasks = () => {
   const [tasks, setTasks] = useState<any[]>([]);
-  const context:any = useContext(UserContext);
-  console.log(context);
+  const context: any = useContext(UserContext);
+  // console.log(context.userState.user);
   async function loadTasks(userId: any) {
     try {
       const tasks = await getTasksOfUser(userId);
       setTasks([...tasks].reverse());
-      console.log(tasks);
+      // console.log(tasks);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
   useEffect(() => {
-    if (context?.user) {
-      loadTasks(context?.user?._id);
+    if (context?.userState?.user) {
+      loadTasks(context?.userState?.user?._id);
     }
-  }, [context.user]);
+  }, [context.userState]);
 
-  async function deleteTaskParent(tasksId:string) {
+  async function deleteTaskParent(tasksId: string) {
     try {
       const result = await deleteTask(tasksId);
-      console.log(result);
+      // console.log(result);
       const newTasks = tasks.filter((item) => item._id != tasksId);
       setTasks(newTasks);
       toast.success('Your task is deleted ');

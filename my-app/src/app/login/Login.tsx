@@ -1,9 +1,10 @@
 'use client';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import UserContext from '@/context/userContext';
 import { login } from '@/services/userService';
 import { useRouter } from 'next/navigation';
 import { toast, useToast } from 'react-toastify';
+import { currentUser } from '@/services/userService';
 
 const Login = () => {
   const initState = {
@@ -11,8 +12,17 @@ const Login = () => {
     password: ''
   };
   const [loginData, setLoginData] = useState(initState);
-  const context: any = useContext(UserContext);
+  const { userState, userDispatch }: any = useContext(UserContext);
   const router = useRouter();
+
+  async function load() {
+    try {
+      const tempUser: any = await currentUser();
+      return tempUser;
+    } catch (err: any) {
+      userDispatch({ type: 'remove' });
+    }
+  }
 
   const loginFormSubmitted = async (e: any) => {
     e.preventDefault();
@@ -22,18 +32,23 @@ const Login = () => {
       position: 'bottom-center'
     });
     if (loginData.email.trim() === '' || loginData.password.trim() === '') {
-      console.log('workin');
+      // console.log('workin');
       toast.info('Invalid Data!!', { position: 'top-center' });
       return;
     }
     try {
       const result: any = await login(loginData);
-
-      context.setUser(result?.data);
-      console.log(context.user, 'Login context2');
-      router.push('/profile/user');
+      // console.log(result);
+      // context.userDispatch({type:'add',payload:result?.data});
+      // console.log(result?.status);
+      if (result?.status) {
+          await load().then((response) =>
+            userDispatch({ type: 'add', payload: response })
+          );
+        router.push('/profile/user');
+      }
     } catch (err: any) {
-      toast.error(err.response.data.message);
+      toast.error(err.response.message);
     }
   };
 

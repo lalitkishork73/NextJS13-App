@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import TaskModel from '@/models/task';
-import { ErrStatusResponse, SuccesStatusResponse } from '@/helper/responseMessage';
+import {
+  ErrStatusResponse,
+  SuccesStatusResponse
+} from '@/helper/responseMessage';
 
 //-----> Get user's Task
 
@@ -10,7 +13,7 @@ export async function GET(
 ) {
   try {
     const { taskId } = params;
-    const getTask = await TaskModel.findById(taskId);
+    const getTask = await TaskModel.find({ userId: taskId });
     if (getTask.length === 0) {
       return ErrStatusResponse(false, 'Not Found', 404);
     }

@@ -16,7 +16,7 @@ const ContactForm = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     setFormData(initVal);
   };
   return (

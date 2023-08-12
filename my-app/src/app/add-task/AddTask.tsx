@@ -1,30 +1,44 @@
 'use client';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import logingSvg from '@/assets/login.svg';
 import Image from 'next/image';
 import { addTask } from '@/services/taskService';
 import { toast } from 'react-toastify';
-
+import UserContext from '@/context/userContext';
 const AddTask = () => {
   const initStat = {
     title: '',
     content: '',
     status: 'none',
-    // temp solution
-    userId: '64a506ab413f1d5bcafcdbec'
+    userId: ''
   };
+
+  const { userState }: any = useContext(UserContext);
+  // console.log(userState);
 
   const [task, setTask] = useState<any>(initStat);
 
-  const handleAddTask = async (e: any) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (userState?.user?._id) {
+      setTask((task: any) => ({
+        ...task,
+        userId: userState.user._id
+      }));
+    }
+  }, [userState]);
+
+  const handleAddTask = async () => {
     try {
+      // console.log(context?.userState?.user?._id )
+
+      // console.log(task);
       const result = await addTask(task);
       toast.success('your task is added!!', { position: 'top-center' });
       setTask({
         title: '',
         content: '',
-        status: 'none'
+        status: 'none',
+        userId: ''
       });
     } catch (err: any) {
       toast.error('Task not added !!', {
@@ -40,7 +54,13 @@ const AddTask = () => {
           <Image src={logingSvg} className="w-[50%]" alt="Login Banner" />
         </div>
         <h1 className="text-3xl text-center">Add your task here </h1>
-        <form action="#!" onSubmit={handleAddTask}>
+        <form
+          action="#!"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAddTask();
+          }}
+        >
           <div className="mt-4">
             <label
               htmlFor="task_title"
@@ -116,7 +136,7 @@ const AddTask = () => {
           {/* button  actions */}
           <div className="mt-4 flex justify-center">
             <button className="bg-blue-600 py-2 px-3 rounded-lg hover:bg-blue-800">
-              Add Task{' '}
+              Add Task
             </button>
             <button className="bg-red-600 py-2 px-3 rounded-lg hover:bg-red-800 ms-3">
               Clear

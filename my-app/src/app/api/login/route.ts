@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import userModel from '@/models/user';
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+
 import {
   ErrStatusResponse,
   SuccesStatusResponse

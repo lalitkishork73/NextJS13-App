@@ -3,8 +3,8 @@ import UserContext from '@/context/userContext';
 import React, { useContext } from 'react';
 import { RxCross1 } from 'react-icons/rx';
 const Task = ({ task, deleteTaskParent }: any) => {
-  const user: any = useContext(UserContext);
-  console.log(user);
+  const context: any = useContext(UserContext);
+  // console.log();
   function deleteTask(taskId: any) {
     // ....
     deleteTaskParent(taskId);
@@ -34,7 +34,7 @@ const Task = ({ task, deleteTaskParent }: any) => {
             Status: <span className="font-bold">{task.status}</span>
           </p>
           <p className="text-right">
-            Author: <span className="font-bold">{user?.user?.name}</span>
+            Author: <span className="font-bold">{context?.userState?.user?.name}</span>
           </p>
         </div>
       </div>

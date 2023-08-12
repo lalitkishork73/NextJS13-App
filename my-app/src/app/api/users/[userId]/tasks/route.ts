@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest, { params }: { params: Params }) {
   try {
     const { userId } = params;
+    // console.log(userId);
     const findTask = await Taskmodel.find({ userId: userId });
     return NextResponse.json(findTask);
   } catch (err: any) {

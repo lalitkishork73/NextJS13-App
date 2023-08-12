@@ -1,31 +1,34 @@
 'use client';
-import React, { useEffect, useState, FC, ReactNode } from 'react';
+import React, { useEffect, Dispatch, FC, ReactNode, useReducer } from 'react';
 import UserContext from './userContext';
 import { currentUser } from '@/services/userService';
+import { reducer, initState } from './reducer';
+import { UserState, UserAction } from './reducer';
 
 interface ProviderProps {
   children: ReactNode;
 }
 
 const Provider: FC<ProviderProps> = ({ children }: ProviderProps) => {
-  const initState = { user: '', IsLogin: false, IsLogout: true };
-  const [user, setUser] = useState<any>(initState);
-  console.log(user, 'Provider1');
+  const [userState, userDispatch]: [any, Dispatch<UserAction>] = useReducer(
+    reducer,
+    initState
+  );
+
   useEffect(() => {
     async function load() {
       try {
-        const tempUser = await currentUser();
-        // console.log(tempUser, 'tempuser');
-        setUser({ ...tempUser });
+        const tempUser: any = await currentUser();
+        return tempUser;
       } catch (err: any) {
-        setUser(undefined);
+        userDispatch({ type: 'remove' });
       }
     }
-    load();
-  }, []);
-  
+    load().then((response) => userDispatch({ type: 'add', payload: response }));
+  }, [userDispatch]);
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ userState, userDispatch }}>
       {children}
     </UserContext.Provider>
   );
